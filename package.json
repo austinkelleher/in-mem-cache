@@ -1,36 +1,36 @@
 {
-  "name": "in-mem-cache",
-  "version": "1.0.0",
-  "description": "Simple in memory cache that supports TTL and entry reaping",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha && ./node_modules/eslint/bin/eslint.js **.js test/**.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/austinkelleher/in-mem-cache.git"
-  },
-  "keywords": [
-    "memory",
-    "cache",
-    "reap"
-  ],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/austinkelleher/in-mem-cache/issues"
-  },
-  "homepage": "https://github.com/austinkelleher/in-mem-cache#readme",
-  "dependencies": {
-    "conflogger": "^1.0.3"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.12.2",
-    "eslint-config-semistandard": "^7.0.0",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "mocha": "^3.2.0"
-  }
+    "name": "in-mem-cache",
+    "description": "Simple in memory cache that supports TTL and entry reaping",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha && ./node_modules/eslint/bin/eslint.js **.js test/**.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/austinkelleher/in-mem-cache.git"
+    },
+    "keywords": [
+        "memory",
+        "cache",
+        "reap"
+    ],
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/austinkelleher/in-mem-cache/issues"
+    },
+    "homepage": "https://github.com/austinkelleher/in-mem-cache#readme",
+    "dependencies": {
+        "conflogger": "^1.0.3"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "eslint": "^3.12.2",
+        "eslint-config-semistandard": "^7.0.0",
+        "eslint-config-standard": "^6.2.1",
+        "eslint-plugin-promise": "^3.4.0",
+        "eslint-plugin-standard": "^2.0.1",
+        "mocha": "^3.2.0"
+    },
+    "version": "1.0.1"
 }
