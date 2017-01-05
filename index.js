@@ -1,19 +1,7 @@
 'use strict';
 
+const CacheEntry = require('./CacheEntry');
 const conflogger = require('conflogger');
-
-class CacheEntry {
-  constructor (cache, data, options) {
-    options = options || {};
-
-    let ttl = options.ttl || cache._ttlDefault;
-
-    this.data = data;
-    this.ttl = ttl;
-    this.expiresTimestamp = (ttl === -1) ? undefined : (Date.now() + ttl);
-    this.keepAliveOnAccess = (options.keepAliveOnAccess !== false);
-  }
-}
 
 class InMemoryCache {
   constructor (options) {
@@ -97,11 +85,6 @@ class InMemoryCache {
         delete entries[cacheKey];
       }
     }
-  }
-  test () {
-    return new Promise(() => {
-
-    });
   }
 
   startReaper (interval) {
