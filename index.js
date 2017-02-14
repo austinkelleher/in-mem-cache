@@ -13,7 +13,7 @@ class InMemoryCache extends EventEmitter {
     this._ttlDefault = options.ttlDefault;
     this._entries = Object.create(null);
     this._reaperTimerId = null;
-    this._emitKeyChanges = !!options.emitKeyChanges;
+    this._emitEntryChanges = !!options.emitEntryChanges;
   }
 
   put (cacheKey, data, options) {
@@ -25,7 +25,7 @@ class InMemoryCache extends EventEmitter {
 
     this._entries[cacheKey] = cacheEntry;
 
-    if (cacheEntry.emitKeyChanges) {
+    if (cacheEntry.emitEntryChanges) {
       this.emit(`put:${cacheKey}`, data);
     }
   }
@@ -35,7 +35,7 @@ class InMemoryCache extends EventEmitter {
 
     delete this._entries[cacheKey];
 
-    if (entry.emitKeyChanges) {
+    if (entry.emitEntryChanges) {
       this.emit(`delete:${cacheKey}`, entry.data);
     }
   }

@@ -11,10 +11,10 @@ class CacheEntry {
 
     // apply cache options value as default if entry option is
     // null or undefined
-    if (options.emitKeyChanges === undefined || options.emitKeyChanges === null) {
-      this.emitKeyChanges = cache._emitKeyChanges;
+    if (options.emitEntryChanges === undefined || options.emitEntryChanges === null) {
+      this.emitEntryChanges = cache._emitEntryChanges;
     } else {
-      this.emitKeyChanges = !!options.emitKeyChanges;
+      this.emitEntryChanges = !!options.emitEntryChanges;
     }
   }
 }

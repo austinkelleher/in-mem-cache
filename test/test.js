@@ -2,8 +2,8 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const InMemoryCache = require('../');
-const EMIT_KEY_CHANGES_ENABLED = { emitKeyChanges: true };
-const EMIT_KEY_CHANGES_DISABLED = { emitKeyChanges: false };
+const EMIT_ENTRY_CHANGES_ENABLED = { emitEntryChanges: true };
+const EMIT_ENTRY_CHANGES_DISABLED = { emitEntryChanges: false };
 
 function _putEntryEventTest (cache, entryOptions, expectedResult) {
   const cacheKey = 'abc';
@@ -134,11 +134,7 @@ describe('InMemoryCache', function () {
     }, 400);
   });
 
-  context('"emitKeyChanges" cache option is not set (default), entry option is not set', () => {
-    beforeEach(() => {
-      cache = InMemoryCache.create();
-    });
-
+  context('"emitEntryChanges" cache option is not set (default), entry option is not set', () => {
     it('should NOT emit an event when an entry is added', () => {
       _putEntryEventTest(cache, undefined, false);
     });
@@ -152,45 +148,37 @@ describe('InMemoryCache', function () {
     });
   });
 
-  context('"emitKeyChanges" cache option is not set, entry option is set to "true"', () => {
-    beforeEach(() => {
-      cache = InMemoryCache.create();
-    });
-
+  context('"emitEntryChanges" cache option is not set, entry option is set to "true"', () => {
     it('should emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true, done);
     });
   });
 
-  context('"emitKeyChanges" cache option is not set, entry option is set to "false"', () => {
-    beforeEach(() => {
-      cache = InMemoryCache.create();
-    });
-
+  context('"emitEntryChanges" cache option is not set, entry option is set to "false"', () => {
     it('should emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false, done);
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "true", entry option is not set', () => {
+  context('"emitEntryChanges" cache option is set to "true", entry option is not set', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_ENABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_ENABLED);
     });
 
     it('should emit an event when an entry is added', () => {
@@ -206,45 +194,45 @@ describe('InMemoryCache', function () {
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "true", entry option is set to "true"', () => {
+  context('"emitEntryChanges" cache option is set to "true", entry option is set to "true"', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_ENABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_ENABLED);
     });
 
     it('should emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true, done);
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "true", entry option is set to "false"', () => {
+  context('"emitEntryChanges" cache option is set to "true", entry option is set to "false"', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_ENABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_ENABLED);
     });
 
     it('should override cache option and NOT emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should override cache option and NOT emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should override cache option and NOT emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false, done);
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "false", entry option is not set', () => {
+  context('"emitEntryChanges" cache option is set to "false", entry option is not set', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_DISABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_DISABLED);
     });
 
     it('should NOT emit an event when an entry is added', () => {
@@ -260,39 +248,39 @@ describe('InMemoryCache', function () {
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "false", entry option is set to "true"', () => {
+  context('"emitEntryChanges" cache option is set to "false", entry option is set to "true"', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_DISABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_DISABLED);
     });
 
     it('should override cache option and emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should override cache option and emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true);
     });
 
     it('should override cache option and emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_ENABLED, true, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_ENABLED, true, done);
     });
   });
 
-  context('"emitKeyChanges" cache option is set to "false", entry option is set to "false"', () => {
+  context('"emitEntryChanges" cache option is set to "false", entry option is set to "false"', () => {
     beforeEach(() => {
-      cache = InMemoryCache.create(EMIT_KEY_CHANGES_DISABLED);
+      cache = InMemoryCache.create(EMIT_ENTRY_CHANGES_DISABLED);
     });
 
     it('should NOT emit an event when an entry is added', () => {
-      _putEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _putEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should NOT emit an event when an entry is deleted', () => {
-      _deleteEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false);
+      _deleteEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false);
     });
 
     it('should NOT emit an event when an entry is reaped', (done) => {
-      _reapEntryEventTest(cache, EMIT_KEY_CHANGES_DISABLED, false, done);
+      _reapEntryEventTest(cache, EMIT_ENTRY_CHANGES_DISABLED, false, done);
     });
   });
 });
