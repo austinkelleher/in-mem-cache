@@ -21,10 +21,10 @@ let value = cache.get(myKey); // 'world'
 ```
 
 The cache will emit an event when cache entries are put and deleted if
-the `emitKeyChanges` option is set;
+the `emitEntryChanges` option is set;
 
 ```js
-const cache = InMemoryCache.create({ emitKeyChanges: true });
+const cache = InMemoryCache.create({ emitEntryChanges: true });
 
 cache.on(`put:${myKey}`, (data) => {
   // data === the entryData that was initially inserted
@@ -51,7 +51,7 @@ cache.on(`delete:${myKey}`, (data) => {
   // data === the entryData that was initially inserted
 });
 
-cache.put(myKey, myData, { emitKeyChanges: true }); // triggers the put listener
+cache.put(myKey, myData, { emitEntryChanges: true }); // triggers the put listener
 cache.delete(myKey); // triggers the delete listener
 ```
 
