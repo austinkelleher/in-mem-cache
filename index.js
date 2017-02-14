@@ -2,15 +2,18 @@
 
 const CacheEntry = require('./CacheEntry');
 const conflogger = require('conflogger');
+const { EventEmitter } = require('events');
 
-class InMemoryCache {
+class InMemoryCache extends EventEmitter {
   constructor (options) {
+    super();
     options = options || {};
 
     this._logger = conflogger.configure(options.logger);
     this._ttlDefault = options.ttlDefault;
     this._entries = Object.create(null);
     this._reaperTimerId = null;
+    this._emitEntryChanges = !!options.emitEntryChanges;
   }
 
   put (cacheKey, data, options) {
@@ -21,10 +24,20 @@ class InMemoryCache {
     }
 
     this._entries[cacheKey] = cacheEntry;
+
+    if (cacheEntry.emitEntryChanges) {
+      this.emit(`put:${cacheKey}`, data);
+    }
   }
 
   delete (cacheKey) {
+    let entry = this._entries[cacheKey];
+
     delete this._entries[cacheKey];
+
+    if (entry.emitEntryChanges) {
+      this.emit(`delete:${cacheKey}`, entry.data);
+    }
   }
 
   getEntry (cacheKey) {
@@ -82,7 +95,8 @@ class InMemoryCache {
         if (this._logger.isDebugEnabled()) {
           this._logger.debug(`Removing expired entry ${cacheKey}`);
         }
-        delete entries[cacheKey];
+
+        this.delete(cacheKey);
       }
     }
   }
