@@ -33,10 +33,12 @@ class InMemoryCache extends EventEmitter {
   delete (cacheKey) {
     let entry = this._entries[cacheKey];
 
-    delete this._entries[cacheKey];
+    if (entry) {
+      delete this._entries[cacheKey];
 
-    if (entry.emitEntryChanges) {
-      this.emit(`delete:${cacheKey}`, entry.data);
+      if (entry.emitEntryChanges) {
+        this.emit(`delete:${cacheKey}`, entry.data);
+      }
     }
   }
 

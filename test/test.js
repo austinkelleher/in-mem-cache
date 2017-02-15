@@ -21,13 +21,18 @@ function _putEntryEventTest (cache, entryOptions, expectedResult) {
   expect(putEventEmitted).to.equal(expectedResult);
 }
 
-function _deleteEntryEventTest (cache, entryOptions, expectedResult) {
+function _deleteEntryEventTest (cache, entryOptions, expectedResult, options) {
   const cacheKey = 'abc';
   const entryData = 123;
 
+  let {put} = options || {};
+  put = typeof put !== 'undefined' ? put : true;
+
   let deleteEventEmitted = false;
 
-  cache.put(cacheKey, entryData, entryOptions);
+  if (put) {
+    cache.put(cacheKey, entryData, entryOptions);
+  }
 
   cache.on(`delete:${cacheKey}`, (data) => {
     if (entryData === data) {
@@ -141,6 +146,12 @@ describe('InMemoryCache', function () {
 
     it('should NOT emit an event when an entry is deleted', () => {
       _deleteEntryEventTest(cache, undefined, false);
+    });
+
+    it('should not emit delete event if cache entry does not exist', () => {
+      _deleteEntryEventTest(cache, undefined, false, {
+        put: false
+      });
     });
 
     it('should NOT emit an event when an entry is reaped', (done) => {
